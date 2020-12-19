@@ -6,16 +6,19 @@ import Map from "./Map";
 import Registration from "./Registration";
 import Profile from "./Profile";
 
-function App() {
+const App = () => {
     const [page, setPage] = useState("login");
+    const customNavigation = (page) =>{
+        setPage(page);
+    }
     const onPageChange = (e) => {
         e.preventDefault();
-        setPage(e.target.name);
+        customNavigation(e.target.name);
     };
 
     const PAGES = {
-        login: <Login onPageChange={onPageChange}/>,
-        registration: <Registration onPageChange={onPageChange}/>,
+        login: <Login customNavigation={customNavigation}/>,
+        registration: <Registration customNavigation={customNavigation}/>,
         map: <Map/>,
         profile: <Profile/>,
     }
