@@ -11,10 +11,6 @@ const App = () => {
     const customNavigation = (page) =>{
         setPage(page);
     }
-    const onPageChange = (e) => {
-        e.preventDefault();
-        customNavigation(e.target.name);
-    };
 
     const PAGES = {
         login: <Login customNavigation={customNavigation}/>,
@@ -25,7 +21,7 @@ const App = () => {
 
     return (
         <div className="App">
-            <Header onPageChange={onPageChange}/>
+            <Header customNavigation={customNavigation}/>
             <main> {PAGES[page]}</main>
         </div>
     );

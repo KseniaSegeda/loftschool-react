@@ -17,26 +17,18 @@ const Login = ({customNavigation}) => {
 
     const onSubmitForm = (e) =>{
         e.preventDefault();
-
-        const NEXT_PAGE = 'map';
-        console.log(formFields);
-        customNavigation(NEXT_PAGE);
-    }
-
-    const setPageRegistration = (e) =>{
-        e.preventDefault();
-        customNavigation('registration');
+        customNavigation('map');
     }
 
     return (
         <div className="login">
             <div className="loginForm">
-                <form className="form" onSubmit={onSubmitForm} name="map">
+                <form className="form" onSubmit={onSubmitForm} >
                     <div className="title">
                         <h3>Войти</h3>
                         <div>
                             <span>Новый пользователь?&nbsp;
-                                <button onClick={setPageRegistration}>Зарегистрируйтесь</button>
+                                <button onClick={() => customNavigation("registration")}>Зарегистрируйтесь</button>
                             </span>
                         </div>
                     </div>

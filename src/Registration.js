@@ -17,17 +17,10 @@ const Registration = ({customNavigation}) => {
         });
     };
 
-    const setPageLogin = (e) =>{
-        e.preventDefault();
-        customNavigation('login');
-    }
-
     const onSubmitForm = (e) =>{
         e.preventDefault();
 
-        const NEXT_PAGE = 'map';
-        console.log(formFields);
-        customNavigation(NEXT_PAGE);
+        customNavigation('map');
     }
 
     return (
@@ -38,7 +31,7 @@ const Registration = ({customNavigation}) => {
                         <h3>Регистрация</h3>
                         <div>
                             <span>Уже зарегистрирован?&nbsp;
-                                <button onClick={setPageLogin}>Войти</button>
+                                <button onClick={() => customNavigation("login")}>Войти</button>
                             </span>
                         </div>
                     </div>
