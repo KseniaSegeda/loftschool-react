@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Login.css";
 
 
-function Login({onPageChange}) {
+const Login = ({customNavigation}) => {
     const [formFields, setFormField] = useState({
         name: "",
         password: "",
@@ -14,15 +14,21 @@ function Login({onPageChange}) {
             [e.target.name]: e.target.value,
         });
     };
+
+    const onSubmitForm = (e) =>{
+        e.preventDefault();
+        customNavigation('map');
+    }
+
     return (
         <div className="login">
             <div className="loginForm">
-                <form className="form">
+                <form className="form" onSubmit={onSubmitForm} >
                     <div className="title">
                         <h3>Войти</h3>
                         <div>
                             <span>Новый пользователь?&nbsp;
-                                <button onClick={onPageChange} name="registration">Зарегистрируйтесь</button>
+                                <button onClick={() => customNavigation("registration")}>Зарегистрируйтесь</button>
                             </span>
                         </div>
                     </div>
@@ -51,9 +57,8 @@ function Login({onPageChange}) {
                         </div>
                         <div className="actions">
                             <button
+                                type="submit"
                                 className="actionsButton"
-                                name="map"
-                                onClick={onPageChange}
                             >Войти</button>
                         </div>
                     </div>

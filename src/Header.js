@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-function Header({onPageChange}) {
+const Header = ({customNavigation}) => {
     const buttonList = [
         {
             name: "map",
@@ -28,8 +28,7 @@ function Header({onPageChange}) {
                             <li className="navItem" key={name}>
                                 <button
                                     className="navLink"
-                                    name={name}
-                                    onClick={onPageChange}
+                                    onClick={() => customNavigation(name)}
                                 >
                                     {text}
                                 </button>

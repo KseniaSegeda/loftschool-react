@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import "./Login.css";
 
 
-function Login({onPageChange}) {
+const Registration = ({customNavigation}) => {
     const [formFields, setFormField] = useState({
         email: "",
         name: "",
@@ -17,15 +17,21 @@ function Login({onPageChange}) {
         });
     };
 
+    const onSubmitForm = (e) =>{
+        e.preventDefault();
+
+        customNavigation('map');
+    }
+
     return (
         <div className="login">
             <div className="loginForm">
-                <form className="form">
+                <form className="form" onSubmit={onSubmitForm}>
                     <div className="title">
                         <h3>Регистрация</h3>
                         <div>
                             <span>Уже зарегистрирован?&nbsp;
-                                <a href='#' onClick={onPageChange} name="login">Войти</a>
+                                <button onClick={() => customNavigation("login")}>Войти</button>
                             </span>
                         </div>
                     </div>
@@ -84,9 +90,8 @@ function Login({onPageChange}) {
                         </div>
                         <div className="actions">
                             <button
+                                type="submit"
                                 className="actionsButton"
-                                name="map"
-                                onClick={onPageChange}
                             >
                                 Зарегистрироваться
                             </button>
@@ -98,4 +103,4 @@ function Login({onPageChange}) {
     );
 }
 
-export default Login;
+export default Registration;
