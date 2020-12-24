@@ -1,0 +1,15 @@
+.header {
+    position: relative;
+    z-index: 1;
+}
+
+.container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.navList{
+    display: flex;
+    list-style: none;
+}
