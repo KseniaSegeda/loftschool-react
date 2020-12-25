@@ -10,8 +10,10 @@ import {
     Button,
 } from "@material-ui/core";
 import PropTypes from 'prop-types';
+import {withAuth} from "../AuthContext";
 
-const Login = ({customNavigation}) => {
+const Login = (props) => {
+    const {customNavigation, logIn, isLoggedIn} = props;
     const [formFields, setFormField] = useState({
         name: "",
         password: "",
@@ -26,7 +28,10 @@ const Login = ({customNavigation}) => {
 
     const onSubmitForm = (e) => {
         e.preventDefault();
-        customNavigation('map');
+        logIn(formFields.name, formFields.password);
+        if(isLoggedIn){
+            customNavigation('map');
+        }
     }
 
     return (
@@ -88,7 +93,7 @@ const Login = ({customNavigation}) => {
         </div>);
 }
 Login.prototype = {
-    customNavigation: PropTypes.func
+    customNavigation: PropTypes.func.isRequired
 }
 
-export default Login;
+export default withAuth(Login);

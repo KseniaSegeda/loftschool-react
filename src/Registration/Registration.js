@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import "./Login.css";
+import "../Login/Login.css";
 import PropTypes from 'prop-types';
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
+import {withAuth} from "../AuthContext";
 
 
 const Registration = ({customNavigation}) => {
@@ -70,9 +71,8 @@ const Registration = ({customNavigation}) => {
                                     </div>
                                     <div className="formField formField-half">
                                         <TextField
-                                            id="name"
+                                            id="lastName"
                                             label="Фамилия"
-                                            fullWidth
                                             name="lastName"
                                             value={formFields.lastName}
                                             onChange={onChange}
@@ -86,7 +86,7 @@ const Registration = ({customNavigation}) => {
                                             label="Пароль"
                                             fullWidth
                                             name="password"
-                                            value={formFields.lastName}
+                                            value={formFields.password}
                                             onChange={onChange}
                                         >
                                         </TextField>
@@ -109,7 +109,7 @@ const Registration = ({customNavigation}) => {
     );
 }
 Registration.prototype = {
-    customNavigation: PropTypes.func
+    customNavigation: PropTypes.func.isRequired
 }
 
-export default Registration;
+export default withAuth(Registration);

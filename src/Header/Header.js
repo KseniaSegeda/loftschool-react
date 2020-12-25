@@ -3,6 +3,7 @@ import "./Header.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Container, Paper} from "@material-ui/core";
 import PropTypes from 'prop-types';
+import { withAuth } from "../AuthContext";
 
 const Header = ({customNavigation}) => {
     const buttonList = [
@@ -20,7 +21,7 @@ const Header = ({customNavigation}) => {
         },
     ];
     return (
-        <Paper elevation={4} tag="header" >
+        <Paper elevation={4} tag="header" className="header">
             <Container>
                 <div className="container">
                     <div className="logo">
@@ -41,7 +42,7 @@ const Header = ({customNavigation}) => {
     );
 }
 Header.prototype = {
-    customNavigation: PropTypes.func
+    customNavigation: PropTypes.func.isRequired
 }
 
-export default Header;
+export const  HeaderWithAuth = withAuth(Header);
