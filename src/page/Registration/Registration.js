@@ -1,21 +1,16 @@
 import React, {useState} from "react";
-import {Logo} from "loft-taxi-mui-theme";
-import "./Login.css";
-import {
-    Typography,
-    Link,
-    TextField,
-    Paper,
-    Grid,
-    Button,
-} from "@material-ui/core";
+import "../Login/Login.css";
 import PropTypes from 'prop-types';
-import {withAuth} from "../AuthContext";
+import {Logo} from "loft-taxi-mui-theme";
+import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
+import {withAuth} from "../../helpers/AuthContext";
 
-const Login = (props) => {
-    const {customNavigation, logIn, isLoggedIn} = props;
+
+const Registration = ({customNavigation}) => {
     const [formFields, setFormField] = useState({
+        email: "",
         name: "",
+        lastName: "",
         password: "",
     });
 
@@ -26,12 +21,10 @@ const Login = (props) => {
         });
     };
 
-    const onSubmitForm = (e) => {
+    const onSubmitForm = (e) =>{
         e.preventDefault();
-        logIn(formFields.name, formFields.password);
-        if(isLoggedIn){
-            customNavigation('map');
-        }
+
+        customNavigation('map');
     }
 
     return (
@@ -43,10 +36,10 @@ const Login = (props) => {
                 <Paper className="loginForm">
                     <form className="form" onSubmit={onSubmitForm}>
                         <div className="title">
-                            <Typography variant="h4">Войти</Typography>
+                            <Typography variant="h4">Регистрация</Typography>
                             <div>
-                            <span>Новый пользователь?&nbsp;
-                                <Link onClick={() => customNavigation("registration")}>Зарегистрируйтесь</Link>
+                            <span>Уже зарегистрирован?&nbsp;
+                                <Link onClick={() => customNavigation("login")}>Войти</Link>
                             </span>
                             </div>
                         </div>
@@ -55,11 +48,33 @@ const Login = (props) => {
                                 <Grid item xs={12}>
                                     <div className="formField">
                                         <TextField
+                                            id="email"
+                                            type="email"
+                                            label="Адрес электронной почты"
+                                            fullWidth
+                                            name="email"
+                                            value={formFields.email}
+                                            onChange={onChange}
+                                        >
+                                        </TextField>
+                                    </div>
+                                    <div className="formField formField-half">
+                                        <TextField
                                             id="name"
                                             label="Имя"
                                             fullWidth
                                             name="name"
                                             value={formFields.name}
+                                            onChange={onChange}
+                                        >
+                                        </TextField>
+                                    </div>
+                                    <div className="formField formField-half">
+                                        <TextField
+                                            id="lastName"
+                                            label="Фамилия"
+                                            name="lastName"
+                                            value={formFields.lastName}
                                             onChange={onChange}
                                         >
                                         </TextField>
@@ -81,7 +96,7 @@ const Login = (props) => {
                                             type="submit"
                                             variant="contained"
                                             color="primary"
-                                        >Войти
+                                        >Зарегистрироваться
                                         </Button>
                                     </div>
                                 </Grid>
@@ -90,10 +105,11 @@ const Login = (props) => {
                     </form>
                 </Paper>
             </div>
-        </div>);
+        </div>
+    );
 }
-Login.prototype = {
+Registration.prototype = {
     customNavigation: PropTypes.func.isRequired
 }
 
-export default withAuth(Login);
+export default withAuth(Registration);

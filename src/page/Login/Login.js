@@ -1,16 +1,21 @@
 import React, {useState} from "react";
-import "../Login/Login.css";
-import PropTypes from 'prop-types';
 import {Logo} from "loft-taxi-mui-theme";
-import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
-import {withAuth} from "../AuthContext";
+import "./Login.css";
+import {
+    Typography,
+    Link,
+    TextField,
+    Paper,
+    Grid,
+    Button,
+} from "@material-ui/core";
+import PropTypes from 'prop-types';
+import {withAuth} from "../../helpers/AuthContext";
 
-
-const Registration = ({customNavigation}) => {
+const Login = (props) => {
+    const {customNavigation, logIn, isLoggedIn} = props;
     const [formFields, setFormField] = useState({
-        email: "",
         name: "",
-        lastName: "",
         password: "",
     });
 
@@ -21,10 +26,9 @@ const Registration = ({customNavigation}) => {
         });
     };
 
-    const onSubmitForm = (e) =>{
+    const onSubmitForm = (e) => {
         e.preventDefault();
-
-        customNavigation('map');
+        logIn(formFields.name, formFields.password);
     }
 
     return (
@@ -36,10 +40,10 @@ const Registration = ({customNavigation}) => {
                 <Paper className="loginForm">
                     <form className="form" onSubmit={onSubmitForm}>
                         <div className="title">
-                            <Typography variant="h4">Регистрация</Typography>
+                            <Typography variant="h4">Войти</Typography>
                             <div>
-                            <span>Уже зарегистрирован?&nbsp;
-                                <Link onClick={() => customNavigation("login")}>Войти</Link>
+                            <span>Новый пользователь?&nbsp;
+                                <Link onClick={() => customNavigation("registration")}>Зарегистрируйтесь</Link>
                             </span>
                             </div>
                         </div>
@@ -48,33 +52,11 @@ const Registration = ({customNavigation}) => {
                                 <Grid item xs={12}>
                                     <div className="formField">
                                         <TextField
-                                            id="email"
-                                            type="email"
-                                            label="Адрес электронной почты"
-                                            fullWidth
-                                            name="email"
-                                            value={formFields.email}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formField formField-half">
-                                        <TextField
                                             id="name"
                                             label="Имя"
                                             fullWidth
                                             name="name"
                                             value={formFields.name}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formField formField-half">
-                                        <TextField
-                                            id="lastName"
-                                            label="Фамилия"
-                                            name="lastName"
-                                            value={formFields.lastName}
                                             onChange={onChange}
                                         >
                                         </TextField>
@@ -92,12 +74,14 @@ const Registration = ({customNavigation}) => {
                                         </TextField>
                                     </div>
                                     <div className="formAction">
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                        >Зарегистрироваться
-                                        </Button>
+                                        {!isLoggedIn ?
+                                            <Button type="submit"
+                                                    variant="contained"
+                                                    color="primary">Войти</Button> :
+                                            <Button
+                                                onClick={() => customNavigation('map')}
+                                                variant="contained"
+                                                color="primary">Перейти на карту</Button>}
                                     </div>
                                 </Grid>
                             </Grid>
@@ -105,11 +89,10 @@ const Registration = ({customNavigation}) => {
                     </form>
                 </Paper>
             </div>
-        </div>
-    );
+        </div>);
 }
-Registration.prototype = {
+Login.prototype = {
     customNavigation: PropTypes.func.isRequired
 }
 
-export default withAuth(Registration);
+export default withAuth(Login);

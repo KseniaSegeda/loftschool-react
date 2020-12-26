@@ -3,9 +3,13 @@ import "./Header.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Container, Paper} from "@material-ui/core";
 import PropTypes from 'prop-types';
-import { withAuth } from "../AuthContext";
+import { withAuth } from "../../helpers/AuthContext";
 
-const Header = ({customNavigation}) => {
+const Header = ({customNavigation, logOut}) => {
+    const exit = () => {
+        customNavigation('login');
+        logOut();
+    }
     const buttonList = [
         {
             name: "map",
@@ -14,11 +18,7 @@ const Header = ({customNavigation}) => {
         {
             name: "profile",
             text: "Профиль",
-        },
-        {
-            name: "login",
-            text: "Войти",
-        },
+        }
     ];
     return (
         <Paper elevation={4} tag="header" className="header">
@@ -34,6 +34,9 @@ const Header = ({customNavigation}) => {
                                     <Button onClick={() => customNavigation(name)}>{text}</Button>
                                 </li>
                             ))}
+                            <li className="navItem">
+                                <Button onClick={() => exit()}>Выйти</Button>
+                            </li>
                         </ul>
                     </nav>
                 </div>

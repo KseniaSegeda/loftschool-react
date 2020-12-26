@@ -1,11 +1,11 @@
 import React, {useState} from "react";
 import "./App.css";
-import {HeaderWithAuth} from "./Header/Header";
-import LoginWithAuth from "./Login/Login";
-import Map from "./Map/Map";
-import RegistrationWithAuth from "./Registration/Registration";
-import Profile from "./Profile/Profile";
-import {withAuth} from "./AuthContext";
+import {HeaderWithAuth} from "./components/Header/Header";
+import LoginWithAuth from "./page/Login/Login";
+import Map from "./page/Map/Map";
+import RegistrationWithAuth from "./page/Registration/Registration";
+import Profile from "./page/Profile/Profile";
+import {withAuth} from "./helpers/AuthContext";
 
 const App = (props) => {
     const { isLoggedIn } = props;

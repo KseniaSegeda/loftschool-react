@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {theme}  from "loft-taxi-mui-theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
-import {AuthProvider} from './AuthContext'
+import {AuthProvider} from './helpers/AuthContext'
 
 ReactDOM.render(
   <React.StrictMode>

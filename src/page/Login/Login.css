@@ -1,5 +1,5 @@
 .login {
-    background-image: url("../assert/login-background.jpg");
+    background-image: url("../../assert/login-background.jpg");
     background-size: cover;
     height: 100vh;
 }
