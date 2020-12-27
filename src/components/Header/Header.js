@@ -30,7 +30,7 @@ const Header = ({customNavigation, logOut}) => {
                     <nav className="nav">
                         <ul className="navList">
                             {buttonList.map(({name, text}) => (
-                                <li className="navItem" key={name}>
+                                <li className="navItem" key={name} data-testid={'nav_' +name}>
                                     <Button onClick={() => customNavigation(name)}>{text}</Button>
                                 </li>
                             ))}
@@ -48,4 +48,4 @@ Header.prototype = {
     customNavigation: PropTypes.func.isRequired
 }
 
-export const  HeaderWithAuth = withAuth(Header);
+export default withAuth(Header);
