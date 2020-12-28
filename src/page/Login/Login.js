@@ -32,7 +32,7 @@ const Login = (props) => {
     }
 
     return (
-        <div className="login">
+        <div className="login" data-testid="login">
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -40,10 +40,10 @@ const Login = (props) => {
                 <Paper className="loginForm">
                     <form className="form" onSubmit={onSubmitForm}>
                         <div className="title">
-                            <Typography variant="h4">Войти</Typography>
+                            <Typography  variant="h4">Войти</Typography>
                             <div>
                             <span>Новый пользователь?&nbsp;
-                                <Link onClick={() => customNavigation("registration")}>Зарегистрируйтесь</Link>
+                                <Link data-testid='linkRegistration' onClick={() => customNavigation("registration")}>Зарегистрируйтесь</Link>
                             </span>
                             </div>
                         </div>

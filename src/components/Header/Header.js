@@ -30,12 +30,12 @@ const Header = ({customNavigation, logOut}) => {
                     <nav className="nav">
                         <ul className="navList">
                             {buttonList.map(({name, text}) => (
-                                <li className="navItem" key={name} data-testid={'nav_' +name}>
-                                    <Button onClick={() => customNavigation(name)}>{text}</Button>
+                                <li className="navItem" key={name}>
+                                    <Button data-testid={'nav_'+name} onClick={() => customNavigation(name)}>{text}</Button>
                                 </li>
                             ))}
                             <li className="navItem">
-                                <Button onClick={() => exit()}>Выйти</Button>
+                                <Button data-testid="nav_exit" onClick={() => exit()}>Выйти</Button>
                             </li>
                         </ul>
                     </nav>

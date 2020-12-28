@@ -8,8 +8,8 @@ import Profile from "./page/Profile/Profile";
 import {withAuth} from "./helpers/AuthContext";
 
 const App = (props) => {
-    const {isLoggedIn} = props;
-    const [page, setPage] = useState("login");
+    const {isLoggedIn, pageProps} = props;
+    const [page, setPage] = useState(pageProps ? pageProps : "login");
     const customNavigation = (page) => {
         if (!isLoggedIn && page !== 'registration') {
             setPage('login');
@@ -23,10 +23,9 @@ const App = (props) => {
             {isLoggedIn ? <HeaderWithAuth customNavigation={customNavigation}/> : null}
             {page === 'login' ? <LoginWithAuth customNavigation={customNavigation}/> : null}
             {page === 'registration' ? <RegistrationWithAuth customNavigation={customNavigation}/> : null}
-            {page === 'map' ? <Map/> : null}
+            {page === 'map' ? <Map /> : null}
             {page === 'profile' ? <Profile/> : null}
         </div>
-
     );
 }
 

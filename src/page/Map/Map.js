@@ -14,7 +14,7 @@ const Map = () => {
         });
         return () => myMap.remove();
     });
-    return <div className="map-container" ref={mapContainer} />;
+    return <div data-testid="map" className="map-container" ref={mapContainer} />;
 }
 
 

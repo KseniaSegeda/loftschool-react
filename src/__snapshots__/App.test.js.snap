@@ -6,6 +6,7 @@ exports[`app.js render correctly 1`] = `
 >
   <div
     className="login"
+    data-testid="login"
   >
     <div
       className="loginContainer"
@@ -39,6 +40,7 @@ exports[`app.js render correctly 1`] = `
                 Новый пользователь? 
                 <a
                   className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                  data-testid="linkRegistration"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -197,10 +199,10 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
           >
             <li
               className="navItem"
-              data-testid="nav_map"
             >
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                data-testid="nav_map"
                 disabled={false}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -229,10 +231,10 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
             </li>
             <li
               className="navItem"
-              data-testid="nav_profile"
             >
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                data-testid="nav_profile"
                 disabled={false}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -264,6 +266,7 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
             >
               <button
                 className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                data-testid="nav_exit"
                 disabled={false}
                 onBlur={[Function]}
                 onClick={[Function]}
@@ -297,6 +300,7 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
   </div>
   <div
     className="login"
+    data-testid="login"
   >
     <div
       className="loginContainer"
@@ -330,6 +334,7 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 Новый пользователь? 
                 <a
                   className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
+                  data-testid="linkRegistration"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}

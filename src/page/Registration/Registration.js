@@ -28,7 +28,7 @@ const Registration = ({customNavigation}) => {
     }
 
     return (
-        <div className="login">
+        <div className="login" data-testid='registration'>
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -39,7 +39,7 @@ const Registration = ({customNavigation}) => {
                             <Typography variant="h4">Регистрация</Typography>
                             <div>
                             <span>Уже зарегистрирован?&nbsp;
-                                <Link onClick={() => customNavigation("login")}>Войти</Link>
+                                <Link data-testid="linkLogin" onClick={() => customNavigation("login")}>Войти</Link>
                             </span>
                             </div>
                         </div>
