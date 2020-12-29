@@ -1,21 +1,18 @@
 import React, {useState} from "react";
-import {Logo} from "loft-taxi-mui-theme";
-import "./Login.css";
-import {
-    Typography,
-    Link,
-    TextField,
-    Paper,
-    Grid,
-    Button,
-} from "@material-ui/core";
+import "../Login/Login.css";
 import PropTypes from 'prop-types';
+import {Logo} from "loft-taxi-mui-theme";
+import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import {withAuth} from "../../helpers/AuthContext";
+import { useHistory, Link as RouterLink } from 'react-router-dom';
 
-const Login = (props) => {
-    const {customNavigation, logIn, isLoggedIn} = props;
+
+const Registration = ({customNavigation}) => {
+    const history = useHistory();
     const [formFields, setFormField] = useState({
+        email: "",
         name: "",
+        lastName: "",
         password: "",
     });
 
@@ -26,13 +23,14 @@ const Login = (props) => {
         });
     };
 
-    const onSubmitForm = (e) => {
+    const onSubmitForm = (e) =>{
         e.preventDefault();
-        logIn(formFields.name, formFields.password);
+
+        history.push('/map');
     }
 
     return (
-        <div className="login" data-testid="login">
+        <div className="login" data-testid='registration'>
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -40,10 +38,10 @@ const Login = (props) => {
                 <Paper className="loginForm">
                     <form className="form" onSubmit={onSubmitForm}>
                         <div className="title">
-                            <Typography  variant="h4">Войти</Typography>
+                            <Typography variant="h4">Регистрация</Typography>
                             <div>
-                            <span>Новый пользователь?&nbsp;
-                                <Link data-testid='linkRegistration' onClick={() => customNavigation("registration")}>Зарегистрируйтесь</Link>
+                            <span>Уже зарегистрирован?&nbsp;
+                                <Link data-testid="linkLogin" component={RouterLink} to="login">Войти</Link>
                             </span>
                             </div>
                         </div>
@@ -52,11 +50,33 @@ const Login = (props) => {
                                 <Grid item xs={12}>
                                     <div className="formField">
                                         <TextField
+                                            id="email"
+                                            type="email"
+                                            label="Адрес электронной почты"
+                                            fullWidth
+                                            name="email"
+                                            value={formFields.email}
+                                            onChange={onChange}
+                                        >
+                                        </TextField>
+                                    </div>
+                                    <div className="formField formField-half">
+                                        <TextField
                                             id="name"
                                             label="Имя"
                                             fullWidth
                                             name="name"
                                             value={formFields.name}
+                                            onChange={onChange}
+                                        >
+                                        </TextField>
+                                    </div>
+                                    <div className="formField formField-half">
+                                        <TextField
+                                            id="lastName"
+                                            label="Фамилия"
+                                            name="lastName"
+                                            value={formFields.lastName}
                                             onChange={onChange}
                                         >
                                         </TextField>
@@ -74,14 +94,12 @@ const Login = (props) => {
                                         </TextField>
                                     </div>
                                     <div className="formAction">
-                                        {!isLoggedIn ?
-                                            <Button type="submit"
-                                                    variant="contained"
-                                                    color="primary">Войти</Button> :
-                                            <Button
-                                                onClick={() => customNavigation('map')}
-                                                variant="contained"
-                                                color="primary">Перейти на карту</Button>}
+                                        <Button
+                                            type="submit"
+                                            variant="contained"
+                                            color="primary"
+                                        >Зарегистрироваться
+                                        </Button>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -89,10 +107,8 @@ const Login = (props) => {
                     </form>
                 </Paper>
             </div>
-        </div>);
-}
-Login.prototype = {
-    customNavigation: PropTypes.func.isRequired
+        </div>
+    );
 }
 
-export default withAuth(Login);
+export default withAuth(Registration);

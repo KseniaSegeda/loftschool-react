@@ -1,18 +1,24 @@
 import React, {useState} from "react";
-import "../Login/Login.css";
-import PropTypes from 'prop-types';
 import {Logo} from "loft-taxi-mui-theme";
-import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
+import "./Login.css";
+import {
+    Typography,
+    Link,
+    TextField,
+    Paper,
+    Grid,
+    Button,
+} from "@material-ui/core";
+import {useHistory, Link as RouterLink} from 'react-router-dom';
 import {withAuth} from "../../helpers/AuthContext";
 
-
-const Registration = ({customNavigation}) => {
+const Login = (props) => {
+    const {logIn, isLoggedIn} = props;
     const [formFields, setFormField] = useState({
-        email: "",
         name: "",
-        lastName: "",
         password: "",
     });
+    const history = useHistory();
 
     const onChange = (e) => {
         setFormField({
@@ -21,14 +27,14 @@ const Registration = ({customNavigation}) => {
         });
     };
 
-    const onSubmitForm = (e) =>{
+    const onSubmitForm = (e) => {
         e.preventDefault();
-
-        customNavigation('map');
+        logIn(formFields.name, formFields.password);
+        history.push('/map')
     }
 
     return (
-        <div className="login" data-testid='registration'>
+        <div className="login" data-testid="login">
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -36,10 +42,12 @@ const Registration = ({customNavigation}) => {
                 <Paper className="loginForm">
                     <form className="form" onSubmit={onSubmitForm}>
                         <div className="title">
-                            <Typography variant="h4">Регистрация</Typography>
+                            <Typography variant="h4">Войти</Typography>
                             <div>
-                            <span>Уже зарегистрирован?&nbsp;
-                                <Link data-testid="linkLogin" onClick={() => customNavigation("login")}>Войти</Link>
+                            <span>Новый пользователь?&nbsp;
+                                <Link data-testid='linkRegistration' component={RouterLink} to="loginUp">
+                                    Зарегистрируйтесь
+                                </Link>
                             </span>
                             </div>
                         </div>
@@ -48,33 +56,11 @@ const Registration = ({customNavigation}) => {
                                 <Grid item xs={12}>
                                     <div className="formField">
                                         <TextField
-                                            id="email"
-                                            type="email"
-                                            label="Адрес электронной почты"
-                                            fullWidth
-                                            name="email"
-                                            value={formFields.email}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formField formField-half">
-                                        <TextField
                                             id="name"
                                             label="Имя"
                                             fullWidth
                                             name="name"
                                             value={formFields.name}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formField formField-half">
-                                        <TextField
-                                            id="lastName"
-                                            label="Фамилия"
-                                            name="lastName"
-                                            value={formFields.lastName}
                                             onChange={onChange}
                                         >
                                         </TextField>
@@ -92,12 +78,9 @@ const Registration = ({customNavigation}) => {
                                         </TextField>
                                     </div>
                                     <div className="formAction">
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                        >Зарегистрироваться
-                                        </Button>
+                                        <Button type="submit"
+                                                variant="contained"
+                                                color="primary">Войти</Button>
                                     </div>
                                 </Grid>
                             </Grid>
@@ -105,11 +88,7 @@ const Registration = ({customNavigation}) => {
                     </form>
                 </Paper>
             </div>
-        </div>
-    );
-}
-Registration.prototype = {
-    customNavigation: PropTypes.func.isRequired
+        </div>);
 }
 
-export default withAuth(Registration);
+export default withAuth(Login);
