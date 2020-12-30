@@ -41,6 +41,7 @@ exports[`app.js render correctly 1`] = `
                 <a
                   className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
                   data-testid="linkRegistration"
+                  href="/loginUp"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}
@@ -205,7 +206,6 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 data-testid="nav_map"
                 disabled={false}
                 onBlur={[Function]}
-                onClick={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
@@ -222,7 +222,12 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 <span
                   className="MuiButton-label"
                 >
-                  Карта
+                  <a
+                    href="/map"
+                    onClick={[Function]}
+                  >
+                    Карта
+                  </a>
                 </span>
                 <span
                   className="MuiTouchRipple-root"
@@ -237,7 +242,6 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 data-testid="nav_profile"
                 disabled={false}
                 onBlur={[Function]}
-                onClick={[Function]}
                 onDragLeave={[Function]}
                 onFocus={[Function]}
                 onKeyDown={[Function]}
@@ -254,7 +258,12 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 <span
                   className="MuiButton-label"
                 >
-                  Профиль
+                  <a
+                    href="/profile"
+                    onClick={[Function]}
+                  >
+                    Профиль
+                  </a>
                 </span>
                 <span
                   className="MuiTouchRipple-root"
@@ -264,34 +273,39 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
             <li
               className="navItem"
             >
-              <button
-                className="MuiButtonBase-root MuiButton-root MuiButton-text"
-                data-testid="nav_exit"
-                disabled={false}
-                onBlur={[Function]}
+              <a
+                href="/logIn"
                 onClick={[Function]}
-                onDragLeave={[Function]}
-                onFocus={[Function]}
-                onKeyDown={[Function]}
-                onKeyUp={[Function]}
-                onMouseDown={[Function]}
-                onMouseLeave={[Function]}
-                onMouseUp={[Function]}
-                onTouchEnd={[Function]}
-                onTouchMove={[Function]}
-                onTouchStart={[Function]}
-                tabIndex={0}
-                type="button"
               >
-                <span
-                  className="MuiButton-label"
+                <button
+                  className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                  data-testid="nav_exit"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onClick={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="button"
                 >
-                  Выйти
-                </span>
-                <span
-                  className="MuiTouchRipple-root"
-                />
-              </button>
+                  <span
+                    className="MuiButton-label"
+                  >
+                    Выйти
+                  </span>
+                  <span
+                    className="MuiTouchRipple-root"
+                  />
+                </button>
+              </a>
             </li>
           </ul>
         </nav>
@@ -335,6 +349,7 @@ exports[`app.js render correctly with props isLoggedIn 1`] = `
                 <a
                   className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
                   data-testid="linkRegistration"
+                  href="/loginUp"
                   onBlur={[Function]}
                   onClick={[Function]}
                   onFocus={[Function]}

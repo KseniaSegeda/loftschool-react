@@ -12,22 +12,23 @@ const App = (props) => {
     const {isLoggedIn} = props;
 
     return (
-        <Router>
-            <div className="App" >
+
+        <div className="App">
+            <Router>
                 {isLoggedIn ? <HeaderWithAuth/> : null}
                 <Switch>
                     <Route path='/' exact component={Login}/>
                     <Route path='/loginUp' component={Registration}/>
                     <Route path='/map'>
-                        {isLoggedIn ? <Map /> : <Redirect to='/' />}
+                        {isLoggedIn ? <Map/> : <Redirect to='/'/>}
                     </Route>
                     <Route path='/profile'>
-                        {isLoggedIn ? <Profile /> : <Redirect to='/' />}
+                        {isLoggedIn ? <Profile/> : <Redirect to='/'/>}
                     </Route>
-                    <Route path='*' component={Login} />
+                    <Route path='*' component={Login}/>
                 </Switch>
-            </div>
-        </Router>
+            </Router>
+        </div>
     );
 }
 

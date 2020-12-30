@@ -38,6 +38,7 @@ exports[`login.js render correctly 1`] = `
               <a
                 className="MuiTypography-root MuiLink-root MuiLink-underlineHover MuiTypography-colorPrimary"
                 data-testid="linkRegistration"
+                href="/loginUp"
                 onBlur={[Function]}
                 onClick={[Function]}
                 onFocus={[Function]}

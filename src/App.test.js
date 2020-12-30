@@ -4,6 +4,7 @@ import App from "./App";
 import { render, fireEvent} from '@testing-library/react'
 import renderer from "react-test-renderer";
 
+
 jest.mock('mapbox-gl', () => ({
     GeolocateControl: jest.fn(),
     Map: jest.fn(() => ({
@@ -19,6 +20,7 @@ describe('app.js', () => {
         const div = document.createElement("div");
         ReactDOM.render(<App/>, div);
         ReactDOM.unmountComponentAtNode(div);
+
     });
 
     it('render correctly', function () {
@@ -55,7 +57,7 @@ describe('app.js', () => {
     });
 
     it('click profile button in navigation -> change page on profile', function(){
-        const { getByText,getByTestId } = render(<App isLoggedIn={true}/>);
+        const { getByText,getByTestId } = render(<App  isLoggedIn={true}/>);
 
         fireEvent.click(getByText('Профиль'))
         expect(getByTestId('profile')).toBeInTheDocument();
