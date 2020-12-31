@@ -1,30 +1,32 @@
 import React, {useState} from "react";
 import "./App.css";
-import Header from "./Header";
-import Login from "./Login";
-import Map from "./Map";
-import Registration from "./Registration";
-import Profile from "./Profile";
+import HeaderWithAuth from "./components/Header/Header";
+import LoginWithAuth from "./page/Login/Login";
+import Map from "./page/Map/Map";
+import RegistrationWithAuth from "./page/Registration/Registration";
+import Profile from "./page/Profile/Profile";
+import {withAuth} from "./helpers/AuthContext";
 
-const App = () => {
-    const [page, setPage] = useState("login");
-    const customNavigation = (page) =>{
+const App = (props) => {
+    const {isLoggedIn, pageProps} = props;
+    const [page, setPage] = useState(pageProps ? pageProps : "login");
+    const customNavigation = (page) => {
+        if (!isLoggedIn && page !== 'registration') {
+            setPage('login');
+            return
+        }
         setPage(page);
-    }
-
-    const PAGES = {
-        login: <Login customNavigation={customNavigation}/>,
-        registration: <Registration customNavigation={customNavigation}/>,
-        map: <Map/>,
-        profile: <Profile/>,
     }
 
     return (
         <div className="App">
-            <Header customNavigation={customNavigation}/>
-            <main> {PAGES[page]}</main>
+            {isLoggedIn ? <HeaderWithAuth customNavigation={customNavigation}/> : null}
+            {page === 'login' ? <LoginWithAuth customNavigation={customNavigation}/> : null}
+            {page === 'registration' ? <RegistrationWithAuth customNavigation={customNavigation}/> : null}
+            {page === 'map' ? <Map /> : null}
+            {page === 'profile' ? <Profile/> : null}
         </div>
     );
 }
 
-export default App;
+export default withAuth(App);

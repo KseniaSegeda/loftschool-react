@@ -1,0 +1,56 @@
+.login {
+    background-image: url("../../assert/login-background.jpg");
+    background-size: cover;
+    height: 100vh;
+}
+.form {
+    width: 500px;
+    padding: 44px 60px;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+.formContainer {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    margin-bottom: 20px;
+}
+
+.titleHeader {
+    margin-bottom: 40px;
+}
+
+.titleSubtext {
+    margin-bottom: 10px;
+}
+
+.loginContainer {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.formField {
+    margin-bottom: 30px;
+}
+.formField-half {
+    width: calc(50% - 5px);
+    display: inline-flex;
+    margin-right: 5px;
+}
+.formField-half:nth-child(2n+1){
+    margin-right: 0;
+}
+
+.formAction {
+    text-align: right;
+}
+
