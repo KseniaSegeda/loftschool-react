@@ -2,10 +2,11 @@ import React from "react";
 import "./Header.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Container, Paper} from "@material-ui/core";
-import {withAuth} from "../../helpers/AuthContext";
 import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {logOut} from "../../redux/auth/actions";
 
-const Header = ({logOut}) => {
+const Header = (props) => {
     const buttonList = [
         {
             name: "map",
@@ -34,7 +35,7 @@ const Header = ({logOut}) => {
                             ))}
                             <li className="navItem">
                                 <Link to='logIn'>
-                                    <Button data-testid="nav_exit" onClick={() => logOut()}>Выйти</Button>
+                                    <Button data-testid="nav_exit" onClick={props.logOut}>Выйти</Button>
                                 </Link>
                             </li>
                         </ul>
@@ -45,4 +46,7 @@ const Header = ({logOut}) => {
     );
 }
 
-export default withAuth(Header);
+export default connect(
+    (state) => ({auth: state.auth}),
+    {logOut}
+)(Header);

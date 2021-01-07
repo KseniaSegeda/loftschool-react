@@ -1,6 +1,5 @@
 import React, {useState} from "react";
 import "../Login/Login.css";
-import PropTypes from 'prop-types';
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import {withAuth} from "../../helpers/AuthContext";

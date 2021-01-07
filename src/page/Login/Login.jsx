@@ -9,17 +9,16 @@ import {
     Grid,
     Button,
 } from "@material-ui/core";
-import {useHistory, Link as RouterLink} from 'react-router-dom';
-import {withAuth} from "../../helpers/AuthContext";
+import {Link as RouterLink, Redirect} from 'react-router-dom';
+import {authenticate} from '../../redux/auth/actions'
+import {connect} from "react-redux";
 
 const Login = (props) => {
-    const {logIn, isLoggedIn} = props;
     const [formFields, setFormField] = useState({
-        name: "",
+        email: "",
         password: "",
     });
-    const history = useHistory();
-
+    const {isLoggedIn, error} = props.auth;
     const onChange = (e) => {
         setFormField({
             ...formFields,
@@ -29,66 +28,70 @@ const Login = (props) => {
 
     const onSubmitForm = (e) => {
         e.preventDefault();
-        logIn(formFields.name, formFields.password);
-        history.push('/map')
+        props.authenticate(formFields);
     }
 
     return (
-        <div className="login" data-testid="login">
-            <div className="loginContainer">
-                <div className="registration__logo">
-                    <Logo white/>
-                </div>
-                <Paper className="loginForm">
-                    <form className="form" onSubmit={onSubmitForm}>
-                        <div className="title">
-                            <Typography variant="h4">Войти</Typography>
-                            <div>
+            <div className="login" data-testid="login">
+                {isLoggedIn ? <Redirect to='/map' /> : null}
+                <div className="loginContainer">
+                    <div className="registration__logo">
+                        <Logo white/>
+                    </div>
+                    <Paper className="loginForm">
+                        <form className="form" onSubmit={onSubmitForm}>
+                            <div className="title">
+                                <Typography variant="h4">Войти</Typography>
+                                <div>
                             <span>Новый пользователь?&nbsp;
                                 <Link data-testid='linkRegistration' component={RouterLink} to="loginUp">
                                     Зарегистрируйтесь
                                 </Link>
                             </span>
+                                </div>
                             </div>
-                        </div>
-                        <div className="formContainer">
-                            <Grid container spacing={2}>
-                                <Grid item xs={12}>
-                                    <div className="formField">
-                                        <TextField
-                                            id="name"
-                                            label="Имя"
-                                            fullWidth
-                                            name="name"
-                                            value={formFields.name}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formField">
-                                        <TextField
-                                            id="password"
-                                            type="password"
-                                            label="Пароль"
-                                            fullWidth
-                                            name="password"
-                                            value={formFields.password}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
-                                    </div>
-                                    <div className="formAction">
-                                        <Button type="submit"
-                                                variant="contained"
-                                                color="primary">Войти</Button>
-                                    </div>
+                            <div className="formContainer">
+                                <Grid container spacing={2}>
+                                    <Grid item xs={12}>
+                                        <div className="formField">
+                                            <TextField
+                                                id="name"
+                                                label="Почта"
+                                                fullWidth
+                                                name="email"
+                                                value={formFields.name}
+                                                onChange={onChange}
+                                            >
+                                            </TextField>
+                                        </div>
+                                        <div className="formField">
+                                            <TextField
+                                                id="password"
+                                                type="password"
+                                                label="Пароль"
+                                                fullWidth
+                                                name="password"
+                                                value={formFields.password}
+                                                onChange={onChange}
+                                            >
+                                            </TextField>
+                                        </div>
+                                        {error ? <Typography color={"error"}>{error}</Typography> : null}
+                                        <div className="formAction">
+                                            <Button type="submit"
+                                                    variant="contained"
+                                                    color="primary">Войти</Button>
+                                        </div>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-                        </div>
-                    </form>
-                </Paper>
-            </div>
-        </div>);
+                            </div>
+                        </form>
+                    </Paper>
+                </div>
+            </div>);
 }
 
-export default withAuth(Login);
+export default connect(
+    (state) => ({auth: state.auth}),
+    {authenticate}
+)(Login);
