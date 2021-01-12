@@ -49,7 +49,7 @@ describe('app.js', () => {
         await act(async () => {
             getByTestId = global.renderWithProviders(<App/>, store).getByTestId;
         });
-        store.dispatch(logIn({token: 'test', success: true}))
+        store.dispatch(logIn({token: 'test', isLoggedIn: true}))
         expect(getByTestId('map')).toBeInTheDocument();
     });
 
@@ -59,7 +59,7 @@ describe('app.js', () => {
             component = global.renderWithProviders(<App/>, store);
         });
         let { getByText,getByTestId } = component;
-        store.dispatch(logIn({token: 'test', success: true}))
+        store.dispatch(logIn({token: 'test', isLoggedIn: true}))
         fireEvent.click(getByText('Профиль'))
         expect(getByTestId('profile')).toBeInTheDocument();
     });

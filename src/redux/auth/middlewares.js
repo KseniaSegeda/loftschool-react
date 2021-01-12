@@ -10,7 +10,6 @@ export const authMiddleware = (store) => (next) => async (action) => {
             if (responseLogIn.success) {
                 store.dispatch(logIn(responseLogIn))
             } else {
-                console.log(responseLogIn)
                 store.dispatch(logInError(responseLogIn))
             }
             next(action);
@@ -20,18 +19,20 @@ export const authMiddleware = (store) => (next) => async (action) => {
             if (responseLogUp.success) {
                 store.dispatch(logIn(responseLogUp))
             } else {
-                console.log(responseLogUp)
                 store.dispatch(logInError(responseLogUp));
             }
+            next(action);
             break;
         case logIn.toString():
             window.localStorage.setItem('state', JSON.stringify({
                 isLoggedIn: true,
                 token: action.payload.token
             }));
+            next(action);
             break;
         case logOut.toString():
             window.localStorage.removeItem('state');
+            next(action);
             break;
         default:
             next(action);

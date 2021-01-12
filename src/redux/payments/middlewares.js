@@ -9,7 +9,6 @@ export const payMiddleware = (store) => (next) => async (action) => {
             if (responseSetCard.success) {
                 store.dispatch(successSetCard(action.payload))
             } else {
-                console.log(responseSetCard)
                 store.dispatch(errorCard(responseSetCard.error))
             }
             break;

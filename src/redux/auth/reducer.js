@@ -1,11 +1,7 @@
-import  {logIn, logOut, logInError} from './actions'
+import  {logIn, logOut, logInError, checkLogin} from './actions'
 const initialState = {
-    isLoggedIn: window.localStorage.getItem('state')
-        ? JSON.parse(window.localStorage.getItem('state')).isLoggedIn
-        : false,
-    token: window.localStorage.getItem('state')
-        ? JSON.parse(window.localStorage.getItem('state')).token
-        : '',
+    isLoggedIn: false,
+    token: '',
     error: null
 }
 
@@ -13,9 +9,18 @@ const initialState = {
 export default function(state= initialState, action) {
     switch(action.type){
         case logIn.toString(): {
+
             return {
                 error: null,
                 isLoggedIn: true,
+                token: action.payload.token
+            }
+        }
+        case checkLogin.toString(): {
+
+            return {
+                error: null,
+                isLoggedIn: action.payload.isLoggedIn,
                 token: action.payload.token
             }
         }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import HeaderWithAuth from "./components/Header/Header";
 import Login from "./page/Login/Login";
@@ -8,9 +8,20 @@ import Registration from "./page/Registration/Registration";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import { connect } from 'react-redux';
 import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
+import {checkLogin} from "./redux/auth/actions";
 
 const App = (props) => {
-    const {isLoggedIn} = props;
+    const {isLoggedIn, checkLogin} = props;
+    useEffect(() => {
+        if (window.localStorage.getItem('state')){
+            const initialState = {
+                isLoggedIn:  JSON.parse(window.localStorage.getItem('state')).isLoggedIn,
+                token: JSON.parse(window.localStorage.getItem('state')).token,
+                error: null
+            }
+            checkLogin(initialState);
+        }
+    }, [checkLogin]);
     return (
         <div className="App">
             <Router>
@@ -28,5 +39,6 @@ const App = (props) => {
 }
 
 export default connect(
-    (state) => ({isLoggedIn: state.auth.isLoggedIn})
+    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
+    {checkLogin}
 )(App);

@@ -35,7 +35,7 @@ const Header = (props) => {
                             ))}
                             <li className="navItem">
                                 <Link to='logIn'>
-                                    <Button data-testid="nav_exit" onClick={props.logOut}>Выйти</Button>
+                                    <Button data-testid="nav_exit" onClick={()=> props.logOut()}>Выйти</Button>
                                 </Link>
                             </li>
                         </ul>

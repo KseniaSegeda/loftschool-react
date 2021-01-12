@@ -93,6 +93,6 @@ const Login = (props) => {
 }
 
 export default connect(
-    (state) => getAuth(state),
+    (state) => getAuth,
     {authenticate}
 )(Login);
