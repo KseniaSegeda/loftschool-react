@@ -5,29 +5,25 @@ const initialState = {
         : false,
     token: window.localStorage.getItem('state')
         ? JSON.parse(window.localStorage.getItem('state')).token
-        : ''
+        : '',
+    error: null
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default function(state=initialState, action) {
+export default function(state= initialState, action) {
     switch(action.type){
         case logIn.toString(): {
-            window.localStorage.setItem('state', JSON.stringify({
-                isLoggedIn: true,
-                token: action.payload
-            }));
             return {
-                error: '',
+                error: null,
                 isLoggedIn: true,
-                token: action.payload
+                token: action.payload.token
             }
         }
         case logOut.toString(): {
-            window.localStorage.removeItem('state');
             return {
                 isLoggedIn: false,
                 token: '',
-                error: ''
+                error: null
             }
         }
         case logInError.toString(): {
@@ -37,3 +33,10 @@ export default function(state=initialState, action) {
             return state;
     }
 }
+
+export const getAuth = (state) => ({
+    isLoggedIn: state.auth.isLoggedIn,
+    token: state.auth.token,
+    error: state.auth.error
+})
+

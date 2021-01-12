@@ -12,13 +12,14 @@ import {
 import {Link as RouterLink, Redirect} from 'react-router-dom';
 import {authenticate} from '../../redux/auth/actions'
 import {connect} from "react-redux";
+import {getAuth} from "../../redux/auth/reducer";
 
 const Login = (props) => {
     const [formFields, setFormField] = useState({
         email: "",
         password: "",
     });
-    const {isLoggedIn, error} = props.auth;
+    const {isLoggedIn, error} = props;
     const onChange = (e) => {
         setFormField({
             ...formFields,
@@ -92,6 +93,6 @@ const Login = (props) => {
 }
 
 export default connect(
-    (state) => ({auth: state.auth}),
+    (state) => getAuth(state),
     {authenticate}
 )(Login);

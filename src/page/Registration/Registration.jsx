@@ -2,12 +2,14 @@ import React, {useState} from "react";
 import "../Login/Login.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
-import {withAuth} from "../../helpers/AuthContext";
-import { useHistory, Link as RouterLink } from 'react-router-dom';
+import {Link as RouterLink, Redirect} from 'react-router-dom';
+import {connect} from "react-redux";
+import {authenticate} from "../../redux/auth/actions";
+import {getAuth} from "../../redux/auth/reducer";
 
 
-const Registration = ({customNavigation}) => {
-    const history = useHistory();
+const Registration = (props) => {
+    const {isLoggedIn, error, registration} = props;
     const [formFields, setFormField] = useState({
         email: "",
         name: "",
@@ -24,12 +26,12 @@ const Registration = ({customNavigation}) => {
 
     const onSubmitForm = (e) =>{
         e.preventDefault();
-
-        history.push('/map');
+        registration(formFields)
     }
 
     return (
         <div className="login" data-testid='registration'>
+            {isLoggedIn ? <Redirect to='/map' /> : null}
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -100,6 +102,7 @@ const Registration = ({customNavigation}) => {
                                         >Зарегистрироваться
                                         </Button>
                                     </div>
+                                    {error ? <Typography color={"error"}>{error}</Typography> : null}
                                 </Grid>
                             </Grid>
                         </div>
@@ -110,4 +113,7 @@ const Registration = ({customNavigation}) => {
     );
 }
 
-export default withAuth(Registration);
+export default connect(
+    (state) => getAuth(state),
+    {authenticate}
+)(Registration);

@@ -18,7 +18,7 @@ const Header = (props) => {
         }
     ];
     return (
-        <Paper elevation={4} tag="header" className="header">
+        <Paper data-testid='header' elevation={4} tag="header" className="header">
             <Container>
                 <div className="container">
                     <div className="logo">
