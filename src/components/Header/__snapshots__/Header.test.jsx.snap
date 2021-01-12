@@ -3,6 +3,7 @@
 exports[`Header.js render correctly 1`] = `
 <div
   className="MuiPaper-root header MuiPaper-elevation4 MuiPaper-rounded"
+  data-testid="header"
   tag="header"
 >
   <div
