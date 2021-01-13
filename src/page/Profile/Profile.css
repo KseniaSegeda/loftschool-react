@@ -1,0 +1,35 @@
+.profile {
+    background-image: url("../../assert/login-background.jpg");
+    background-size: cover;
+    height: calc(100vh - 65px);
+}
+
+.profile__container {
+    display: flex;
+    justify-content: center;
+}
+
+.profile__window {
+    padding: 44px 60px;
+    margin-top: 48px;
+    margin-bottom: 48px;
+}
+
+.profile-title {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-form__block {
+    position: relative;
+    padding: 16px 32px;
+    margin-bottom: 20px;
+}
+
+.form__field {
+   margin-bottom: 15px;
+}
+.form__field #cardName{
+    margin-bottom: 0;
+}
+

@@ -2,14 +2,11 @@ import React from "react";
 import "./Header.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Container, Paper} from "@material-ui/core";
-import PropTypes from 'prop-types';
-import { withAuth } from "../../helpers/AuthContext";
+import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {logOut} from "../../redux/auth/actions";
 
-const Header = ({customNavigation, logOut}) => {
-    const exit = () => {
-        customNavigation('login');
-        logOut();
-    }
+const Header = (props) => {
     const buttonList = [
         {
             name: "map",
@@ -21,7 +18,7 @@ const Header = ({customNavigation, logOut}) => {
         }
     ];
     return (
-        <Paper elevation={4} tag="header" className="header">
+        <Paper data-testid='header' elevation={4} tag="header" className="header">
             <Container>
                 <div className="container">
                     <div className="logo">
@@ -31,11 +28,15 @@ const Header = ({customNavigation, logOut}) => {
                         <ul className="navList">
                             {buttonList.map(({name, text}) => (
                                 <li className="navItem" key={name}>
-                                    <Button data-testid={'nav_'+name} onClick={() => customNavigation(name)}>{text}</Button>
+                                    <Button data-testid={'nav_' + name}>
+                                        <Link to={name}>{text}</Link>
+                                    </Button>
                                 </li>
                             ))}
                             <li className="navItem">
-                                <Button data-testid="nav_exit" onClick={() => exit()}>Выйти</Button>
+                                <Link to='logIn'>
+                                    <Button data-testid="nav_exit" onClick={()=> props.logOut()}>Выйти</Button>
+                                </Link>
                             </li>
                         </ul>
                     </nav>
@@ -44,8 +45,8 @@ const Header = ({customNavigation, logOut}) => {
         </Paper>
     );
 }
-Header.prototype = {
-    customNavigation: PropTypes.func.isRequired
-}
 
-export default withAuth(Header);
+export default connect(
+    (state) => ({auth: state.auth}),
+    {logOut}
+)(Header);

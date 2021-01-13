@@ -3,6 +3,7 @@
 exports[`Header.js render correctly 1`] = `
 <div
   className="MuiPaper-root header MuiPaper-elevation4 MuiPaper-rounded"
+  data-testid="header"
   tag="header"
 >
   <div
@@ -34,7 +35,6 @@ exports[`Header.js render correctly 1`] = `
               data-testid="nav_map"
               disabled={false}
               onBlur={[Function]}
-              onClick={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -51,7 +51,12 @@ exports[`Header.js render correctly 1`] = `
               <span
                 className="MuiButton-label"
               >
-                Карта
+                <a
+                  href="/map"
+                  onClick={[Function]}
+                >
+                  Карта
+                </a>
               </span>
             </button>
           </li>
@@ -63,7 +68,6 @@ exports[`Header.js render correctly 1`] = `
               data-testid="nav_profile"
               disabled={false}
               onBlur={[Function]}
-              onClick={[Function]}
               onDragLeave={[Function]}
               onFocus={[Function]}
               onKeyDown={[Function]}
@@ -80,38 +84,48 @@ exports[`Header.js render correctly 1`] = `
               <span
                 className="MuiButton-label"
               >
-                Профиль
+                <a
+                  href="/profile"
+                  onClick={[Function]}
+                >
+                  Профиль
+                </a>
               </span>
             </button>
           </li>
           <li
             className="navItem"
           >
-            <button
-              className="MuiButtonBase-root MuiButton-root MuiButton-text"
-              data-testid="nav_exit"
-              disabled={false}
-              onBlur={[Function]}
+            <a
+              href="/logIn"
               onClick={[Function]}
-              onDragLeave={[Function]}
-              onFocus={[Function]}
-              onKeyDown={[Function]}
-              onKeyUp={[Function]}
-              onMouseDown={[Function]}
-              onMouseLeave={[Function]}
-              onMouseUp={[Function]}
-              onTouchEnd={[Function]}
-              onTouchMove={[Function]}
-              onTouchStart={[Function]}
-              tabIndex={0}
-              type="button"
             >
-              <span
-                className="MuiButton-label"
+              <button
+                className="MuiButtonBase-root MuiButton-root MuiButton-text"
+                data-testid="nav_exit"
+                disabled={false}
+                onBlur={[Function]}
+                onClick={[Function]}
+                onDragLeave={[Function]}
+                onFocus={[Function]}
+                onKeyDown={[Function]}
+                onKeyUp={[Function]}
+                onMouseDown={[Function]}
+                onMouseLeave={[Function]}
+                onMouseUp={[Function]}
+                onTouchEnd={[Function]}
+                onTouchMove={[Function]}
+                onTouchStart={[Function]}
+                tabIndex={0}
+                type="button"
               >
-                Выйти
-              </span>
-            </button>
+                <span
+                  className="MuiButton-label"
+                >
+                  Выйти
+                </span>
+              </button>
+            </a>
           </li>
         </ul>
       </nav>

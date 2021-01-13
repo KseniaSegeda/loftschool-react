@@ -1,12 +1,15 @@
 import React, {useState} from "react";
 import "../Login/Login.css";
-import PropTypes from 'prop-types';
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
-import {withAuth} from "../../helpers/AuthContext";
+import {Link as RouterLink, Redirect} from 'react-router-dom';
+import {connect} from "react-redux";
+import {registration} from "../../redux/auth/actions";
+import {getAuth} from "../../redux/auth/reducer";
 
 
-const Registration = ({customNavigation}) => {
+const Registration = (props) => {
+    const {isLoggedIn, error, registration} = props;
     const [formFields, setFormField] = useState({
         email: "",
         name: "",
@@ -23,12 +26,12 @@ const Registration = ({customNavigation}) => {
 
     const onSubmitForm = (e) =>{
         e.preventDefault();
-
-        customNavigation('map');
+        registration(formFields)
     }
 
     return (
         <div className="login" data-testid='registration'>
+            {isLoggedIn ? <Redirect to='/map' /> : null}
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
@@ -39,7 +42,7 @@ const Registration = ({customNavigation}) => {
                             <Typography variant="h4">Регистрация</Typography>
                             <div>
                             <span>Уже зарегистрирован?&nbsp;
-                                <Link data-testid="linkLogin" onClick={() => customNavigation("login")}>Войти</Link>
+                                <Link data-testid="linkLogin" component={RouterLink} to="login">Войти</Link>
                             </span>
                             </div>
                         </div>
@@ -99,6 +102,7 @@ const Registration = ({customNavigation}) => {
                                         >Зарегистрироваться
                                         </Button>
                                     </div>
+                                    {error ? <Typography color={"error"}>{error}</Typography> : null}
                                 </Grid>
                             </Grid>
                         </div>
@@ -108,8 +112,8 @@ const Registration = ({customNavigation}) => {
         </div>
     );
 }
-Registration.prototype = {
-    customNavigation: PropTypes.func.isRequired
-}
 
-export default withAuth(Registration);
+export default connect(
+    (state) => getAuth,
+    {registration}
+)(Registration);
