@@ -36,6 +36,5 @@ export const authMiddleware = (store) => (next) => async (action) => {
             break;
         default:
             next(action);
-            break;
     }
 }

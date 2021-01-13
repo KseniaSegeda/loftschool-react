@@ -15,6 +15,5 @@ export const payMiddleware = (store) => (next) => async (action) => {
             break;
         default:
             next(action);
-            break;
     }
 }
