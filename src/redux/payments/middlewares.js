@@ -4,7 +4,8 @@ import {serverSetCard} from "../../api/card";
 export const payMiddleware = (store) => (next) => async (action) => {
     switch (action.type) {
         case pendingSetCard.toString():
-            const responseSetCard = await serverSetCard({...action.payload, token: store.auth.token});
+            const token = JSON.parse(window.localStorage.getItem('state')).token;
+            const responseSetCard = await serverSetCard({...action.payload, token});
 
             if (responseSetCard.success) {
                 store.dispatch(successSetCard(action.payload))

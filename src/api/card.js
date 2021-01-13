@@ -6,7 +6,7 @@ export const serverSetCard = async(form) => {
             expiryDate: form.expiryDate,
             cardName: form.cardName,
             cvc: form.cvc,
-            token: ''
+            token: form.token
         }),
         headers: {
             'Content-Type': 'application/json'
