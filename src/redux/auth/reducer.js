@@ -32,7 +32,7 @@ export default function(state= initialState, action) {
             }
         }
         case logInError.toString(): {
-            return {isLoggedIn: false, error: action.payload.error, token: ''}
+            return {isLoggedIn: false, error: action.payload, token: ''}
         }
         default:
             return state;

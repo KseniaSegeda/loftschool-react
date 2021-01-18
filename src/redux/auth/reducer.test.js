@@ -40,7 +40,7 @@ describe('auth reducer', () => {
 
     it(`should action ${logInError.toString()}`, () => {
         expect(
-            reducer({}, logInError({error: 'Ошибка'}))
+            reducer({}, logInError('Ошибка'))
         ).toEqual({
             isLoggedIn: false,
             token: '',

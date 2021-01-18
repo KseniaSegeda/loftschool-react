@@ -1,0 +1,15 @@
+.openOrder {
+    position: absolute;
+    z-index: 9;
+    width: 500px;
+    padding: 35px;
+    top: 100px;
+    left: 15px;
+}
+
+.inputAddress{
+    margin-bottom: 30px;
+}
+.inputAddress:last-child{
+    margin-bottom: 0;
+}
