@@ -4,8 +4,8 @@ import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
 import {Link as RouterLink, Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
-import {registration} from "../../redux/auth/actions";
-import {getAuth} from "../../redux/auth/reducer";
+import {registration} from "../../redux/auth/";
+import {getAuth} from "../../redux/auth";
 
 
 const Registration = (props) => {
@@ -114,6 +114,6 @@ const Registration = (props) => {
 }
 
 export default connect(
-    (state) => getAuth,
+    getAuth,
     {registration}
 )(Registration);

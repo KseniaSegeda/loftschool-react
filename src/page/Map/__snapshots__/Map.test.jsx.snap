@@ -1,8 +1,51 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Map.js render correctly 1`] = `
-<div
-  className="map-container"
-  data-testid="map"
-/>
+Array [
+  <div
+    className="MuiPaper-root openOrder MuiPaper-elevation1 MuiPaper-rounded"
+  >
+    <div
+      className="containerOpenOrder"
+    >
+      <p
+        className="MuiTypography-root MuiTypography-body1"
+      >
+        Заполните платежные данные для заказа
+      </p>
+    </div>
+    <button
+      className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiButton-label"
+      >
+        <a
+          href="/profile"
+          onClick={[Function]}
+        >
+          Заполнить
+        </a>
+      </span>
+    </button>
+  </div>,
+  <div
+    className="map-container"
+    data-testid="map"
+  />,
+]
 `;

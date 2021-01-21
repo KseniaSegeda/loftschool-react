@@ -14,19 +14,24 @@ describe('payments reducer', () => {
             cardNumber: '',
             expiryDate: '',
             cardName: '',
-            cvc: ''
+            cvc: '',
+            isLoading: false,
         })
     })
     it(`should action ${successSetCard.toString()}`, () => {
         expect(
             reducer({}, successSetCard(FAKE_DATA_CARD))
-        ).toEqual(FAKE_DATA_CARD)
+        ).toEqual({...FAKE_DATA_CARD, isLoading: true})
     })
     it(`should action ${errorCard.toString()}`, () => {
         expect(
             reducer({}, errorCard('Ошибка'))
         ).toEqual({
-            error: 'Ошибка'
+            cardName: "",
+            cardNumber: "",
+            cvc: "",
+            error: "Ошибка",
+            isLoading: true
         })
     })
 })

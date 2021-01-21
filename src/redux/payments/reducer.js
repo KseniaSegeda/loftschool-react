@@ -13,6 +13,10 @@ export default function(state = initialState, action) {
     switch(action.type){
         case pendingGetCard.toString():
             return {
+                cardNumber: '',
+                cardName: '',
+                cvc:'',
+                error: null,
                 isLoading: false
             }
         case successSetCard.toString():
@@ -26,27 +30,13 @@ export default function(state = initialState, action) {
             }
         case errorCard.toString():
             return {
+                cardNumber: '',
+                cardName: '',
+                cvc:'',
                 isLoading: true,
                 error: action.payload
             }
         default:
             return state;
     }
-}
-
-export const getCard = (state) => {
-    const {
-        cardNumber,
-        expiryDate,
-        cardName,
-        cvc,
-        isLoading
-    } = state.pay;
-    return {
-        cardNumber,
-        expiryDate,
-        cardName,
-        cvc,
-        isLoading
-    };
 }

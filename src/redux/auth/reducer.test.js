@@ -47,5 +47,4 @@ describe('auth reducer', () => {
             error: 'Ошибка'
         })
     })
-
 })

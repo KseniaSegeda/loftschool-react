@@ -86,7 +86,3 @@ export default function(state = initialState, action) {
             return state;
     }
 }
-export const getRoute = (state) => ({
-    addresses: state.route.address.list,
-    draw: state.route.route
-})

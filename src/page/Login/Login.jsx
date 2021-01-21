@@ -10,9 +10,8 @@ import {
     Button,
 } from "@material-ui/core";
 import {Link as RouterLink, Redirect} from 'react-router-dom';
-import {authenticate} from '../../redux/auth/actions'
+import {authenticate, getAuth} from '../../redux/auth/'
 import {connect} from "react-redux";
-import {getAuth} from "../../redux/auth/reducer";
 
 const Login = (props) => {
     const [formFields, setFormField] = useState({
@@ -20,6 +19,7 @@ const Login = (props) => {
         password: "",
     });
     const {isLoggedIn, error} = props;
+
     const onChange = (e) => {
         setFormField({
             ...formFields,
@@ -93,6 +93,6 @@ const Login = (props) => {
 }
 
 export default connect(
-    (state) => getAuth,
+    getAuth,
     {authenticate}
 )(Login);

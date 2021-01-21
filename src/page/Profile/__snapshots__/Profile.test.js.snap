@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile render correctly 1`] = `
+<div
+  className="profile"
+  data-testid="profile"
+>
+  <div
+    className="profile__container"
+  >
+    <div
+      className="MuiPaper-root profile__window MuiPaper-elevation1 MuiPaper-rounded"
+    >
+      <div
+        className="profile-title"
+      >
+        <div
+          className="profile-title__header"
+        >
+          <h4
+            className="MuiTypography-root MuiTypography-h4"
+          >
+            Профиль
+          </h4>
+        </div>
+        <div
+          className="profile-title__subtext"
+        >
+          <p
+            className="MuiTypography-root MuiTypography-body1"
+          >
+            Способ оплаты
+          </p>
+        </div>
+      </div>
+      <form
+        onSubmit={[Function]}
+      >
+        <div
+          className="MuiGrid-root MuiGrid-container"
+        >
+          <div
+            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
+          >
+            <div
+              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-justify-xs-center"
+            >
+              <div
+                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
+              >
+                loading....
+              </div>
+              <div>
+                <button
+                  className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
+                  disabled={false}
+                  onBlur={[Function]}
+                  onDragLeave={[Function]}
+                  onFocus={[Function]}
+                  onKeyDown={[Function]}
+                  onKeyUp={[Function]}
+                  onMouseDown={[Function]}
+                  onMouseLeave={[Function]}
+                  onMouseUp={[Function]}
+                  onTouchEnd={[Function]}
+                  onTouchMove={[Function]}
+                  onTouchStart={[Function]}
+                  tabIndex={0}
+                  type="submit"
+                >
+                  <span
+                    className="MuiButton-label"
+                  >
+                    Сохранить
+                  </span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+`;

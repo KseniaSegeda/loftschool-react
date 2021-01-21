@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import "./OpenOrder.css";
 import {connect} from "react-redux";
-import {pendingGetRouter, pendingGetListAddress} from "../../redux/route/actions";
+import {pendingGetRouter, pendingGetListAddress} from "../../redux/route/";
 
 
 const OpenOrder = (props) => {
@@ -63,7 +63,4 @@ const OpenOrder = (props) => {
     </Paper>
 }
 
-export default connect(
-    ()=>{},
-    {pendingGetRouter, pendingGetListAddress}
-)(OpenOrder);
+export default connect(()=>({}), {pendingGetRouter, pendingGetListAddress})(OpenOrder);

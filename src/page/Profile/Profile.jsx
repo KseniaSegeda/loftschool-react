@@ -4,9 +4,8 @@ import {MCIcon} from 'loft-taxi-mui-theme';
 import './Profile.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {DatePicker, MuiPickersUtilsProvider,} from '@material-ui/pickers';
-import {pendingGetCard, pendingSetCard} from "../../redux/payments/actions";
+import {pendingGetCard, pendingSetCard, getCard} from "../../redux/payments/";
 import {connect} from "react-redux";
-import {getCard} from "../../redux/payments/reducer";
 
 
 const Profile = (props) => {
@@ -14,7 +13,7 @@ const Profile = (props) => {
     const [isUpdateCard, setIsUpdateCard] = useState(true);
     const [formFields, setFormField] = useState({
         cardNumber: "",
-        expiryDate: new Date(),
+        expiryDate: +new Date(),
         cardName: "",
         cvc: "",
         token: token

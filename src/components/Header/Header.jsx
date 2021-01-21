@@ -4,7 +4,7 @@ import {Logo} from "loft-taxi-mui-theme";
 import {Button, Container, Paper} from "@material-ui/core";
 import {Link} from "react-router-dom";
 import {connect} from "react-redux";
-import {logOut} from "../../redux/auth/actions";
+import {logOut, getAuth} from "../../redux/auth/";
 
 const Header = (props) => {
     const buttonList = [
@@ -47,6 +47,6 @@ const Header = (props) => {
 }
 
 export default connect(
-    (state) => ({auth: state.auth}),
+    getAuth,
     {logOut}
 )(Header);

@@ -13,3 +13,8 @@
 .inputAddress:last-child{
     margin-bottom: 0;
 }
+
+
+.containerOpenOrder{
+    text-align: center;
+}

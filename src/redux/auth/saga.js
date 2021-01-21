@@ -1,19 +1,19 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { serverLogIn } from '../../api/auth';
 import { serverLogUp } from '../../api/regstraton';
-import {authenticate, logIn, logInError, registration, logOut} from './actions';
+import {authenticate, logIn, logInError, registration, logOut} from './index';
 
 export function* authenticateSaga(action) {
     const {email, password} = action.payload;
+    const responseLogIn = yield call(serverLogIn, email, password);
     try {
-        const responseLogIn = yield call(serverLogIn, email, password);
         if (responseLogIn['success']) {
             yield put(logIn(responseLogIn));
         } else{
             yield put(logInError(responseLogIn.error))
         }
     } catch (e) {
-        yield put(logInError('Сетевая ошибка'))
+        yield put(logInError('Сетевая ошибка', responseLogIn))
         console.error('authenticateSaga', e);
     }
 }

@@ -39,9 +39,4 @@ export default function(state= initialState, action) {
     }
 }
 
-export const getAuth = (state) => ({
-    isLoggedIn: state.auth.isLoggedIn,
-    token: state.auth.token,
-    error: state.auth.error
-})
 
