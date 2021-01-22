@@ -3,6 +3,7 @@ import {BrowserRouter} from "react-router-dom";
 import { Provider } from 'react-redux'
 import React from "react";
 import { render } from '@testing-library/react'
+import 'jest-localstorage-mock';
 
 jest.mock('mapbox-gl', () => ({
     GeolocateControl: jest.fn(),
@@ -31,3 +32,8 @@ global.wrapperProvider = (children, store) => (
         <Provider store={store}>{children}</Provider>
     </BrowserRouter>
 )
+
+global.localStorageMock = {
+    getItem: jest.fn(),
+    setItem: jest.fn()
+}
