@@ -27,7 +27,7 @@ const Map = (props) => {
             const coordinates = draw.drawRoute;
             myMap.on('styledata', function() {drawRoute(myMap, coordinates)});
         }
-        // return () => myMap.remove();
+        return () => myMap.remove();
     }, [draw.drawRoute, draw.isLoading, isCard]);
     return <>
         {modal=== 'payments' ?  <PaymentsOrder/> : null}
