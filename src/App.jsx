@@ -8,10 +8,11 @@ import Registration from "./page/Registration/Registration";
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"
 import { connect } from 'react-redux';
 import PrivateRouter from "./components/PrivateRouter/PrivateRouter";
-import {checkLogin} from "./redux/auth/actions";
+import {checkLogin, getAuth} from "./redux/auth/";
+import {pendingGetCard} from "./redux/payments/";
 
 const App = (props) => {
-    const {isLoggedIn, checkLogin} = props;
+    const {isLoggedIn, checkLogin, pendingGetCard} = props;
     useEffect(() => {
         if (window.localStorage.getItem('state')){
             const initialState = {
@@ -20,8 +21,9 @@ const App = (props) => {
                 error: null
             }
             checkLogin(initialState);
+            pendingGetCard()
         }
-    }, [checkLogin]);
+    }, [checkLogin, pendingGetCard]);
     return (
         <div className="App">
             <Router>
@@ -39,6 +41,6 @@ const App = (props) => {
 }
 
 export default connect(
-    (state) => ({isLoggedIn: state.auth.isLoggedIn}),
-    {checkLogin}
+    getAuth,
+    {checkLogin, pendingGetCard}
 )(App);
