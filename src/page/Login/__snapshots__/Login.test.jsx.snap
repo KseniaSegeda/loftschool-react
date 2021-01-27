@@ -21,7 +21,9 @@ exports[`login.js render correctly 1`] = `
       className="MuiPaper-root loginForm MuiPaper-elevation1 MuiPaper-rounded"
     >
       <form
+        action="#"
         className="form"
+        onReset={[Function]}
         onSubmit={[Function]}
       >
         <div
@@ -66,8 +68,8 @@ exports[`login.js render correctly 1`] = `
                   <label
                     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated"
                     data-shrink={false}
-                    htmlFor="name"
-                    id="name-label"
+                    htmlFor="email"
+                    id="email-label"
                   >
                     Почта
                   </label>
@@ -80,7 +82,7 @@ exports[`login.js render correctly 1`] = `
                       autoFocus={false}
                       className="MuiInputBase-input MuiInput-input"
                       disabled={false}
-                      id="name"
+                      id="email"
                       name="email"
                       onAnimationStart={[Function]}
                       onBlur={[Function]}
@@ -88,6 +90,7 @@ exports[`login.js render correctly 1`] = `
                       onFocus={[Function]}
                       required={false}
                       type="text"
+                      value=""
                     />
                   </div>
                 </div>

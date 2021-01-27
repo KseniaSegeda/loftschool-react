@@ -65,8 +65,9 @@ describe('Map.js', () => {
         let  getByText;
         await act(async () => {
             getByText = render(global.wrapperProvider(<Map />, store)).getByText;
+            store.dispatch(successGetListAddress({addresses: [1,2,3,4]}));
         });
-        store.dispatch(successGetListAddress({addresses: [1,2,3,4]}));
+
 
         expect(getByText('Вызвать такси')).toBeInTheDocument();
     });

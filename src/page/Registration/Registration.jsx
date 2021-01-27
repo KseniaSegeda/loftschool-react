@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import "../Login/Login.css";
 import {Logo} from "loft-taxi-mui-theme";
 import {Button, Grid, Link, Paper, TextField, Typography} from "@material-ui/core";
@@ -6,38 +6,53 @@ import {Link as RouterLink, Redirect} from 'react-router-dom';
 import {connect} from "react-redux";
 import {registration} from "../../redux/auth/";
 import {getAuth} from "../../redux/auth";
+import {Field, Form, Formik, getIn} from "formik";
+import * as Yup from "yup";
 
 
+const SignUnSchema = Yup.object().shape({
+    email: Yup.string()
+        .email('Invalid email')
+        .required('Required'),
+    name: Yup.string()
+        .required('Required'),
+    lastName: Yup.string()
+        .required('Required'),
+    password: Yup.string()
+        .required('Required')
+})
 const Registration = (props) => {
     const {isLoggedIn, error, registration} = props;
-    const [formFields, setFormField] = useState({
-        email: "",
-        name: "",
-        lastName: "",
-        password: "",
-    });
 
-    const onChange = (e) => {
-        setFormField({
-            ...formFields,
-            [e.target.name]: e.target.value,
-        });
-    };
-
-    const onSubmitForm = (e) =>{
-        e.preventDefault();
-        registration(formFields)
+    const isShowerError = ({errors, name, touched}) => {
+        const fieldError = getIn(errors, name);
+        return getIn(touched, name) && !!fieldError;
     }
 
     return (
         <div className="login" data-testid='registration'>
-            {isLoggedIn ? <Redirect to='/map' /> : null}
+            {isLoggedIn ? <Redirect to='/map'/> : null}
             <div className="loginContainer">
                 <div className="registration__logo">
                     <Logo white/>
                 </div>
                 <Paper className="loginForm">
-                    <form className="form" onSubmit={onSubmitForm}>
+                    <Formik initialValues={{
+                        email: "",
+                        name: "",
+                        lastName: "",
+                        password: ""
+                    }}
+                            validationSchema={SignUnSchema}
+                            onSubmit={(values, {setSubmitting}) => {
+                                registration(values)
+                                setSubmitting(false);
+                            }}
+                    >{({
+                           errors,
+                           touched,
+                           isSubmitting,
+                       }) => (<Form className="form">
                         <div className="title">
                             <Typography variant="h4">Регистрация</Typography>
                             <div>
@@ -50,55 +65,55 @@ const Registration = (props) => {
                             <Grid container spacing={2}>
                                 <Grid item xs={12}>
                                     <div className="formField">
-                                        <TextField
-                                            id="email"
-                                            type="email"
-                                            label="Адрес электронной почты"
-                                            fullWidth
-                                            name="email"
-                                            value={formFields.email}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
+                                        <Field as={TextField}
+                                               id="email"
+                                               label="Адрес электронной почты"
+                                               error={isShowerError({errors, name: 'email', touched})}
+                                               fullWidth
+                                               name="email"
+                                               helperText={isShowerError({errors, name: 'email', touched}) ?
+                                                   getIn(errors, 'email') : null}
+                                        />
                                     </div>
                                     <div className="formField formField-half">
-                                        <TextField
-                                            id="name"
-                                            label="Имя"
-                                            fullWidth
-                                            name="name"
-                                            value={formFields.name}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
+                                        <Field as={TextField}
+                                               id="name"
+                                               label="Имя"
+                                               fullWidth
+                                               name="name"
+                                               error={isShowerError({errors, name: 'name', touched})}
+                                               helperText={isShowerError({errors, name: 'name', touched}) ?
+                                                   getIn(errors, 'name') : null}
+                                        />
                                     </div>
                                     <div className="formField formField-half">
-                                        <TextField
-                                            id="lastName"
-                                            label="Фамилия"
-                                            name="lastName"
-                                            value={formFields.lastName}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
+                                        <Field as={TextField}
+                                               id="lastName"
+                                               label="Фамилия"
+                                               name="lastName"
+                                               error={isShowerError({errors, name: 'lastName', touched})}
+                                               helperText={isShowerError({errors, name: 'lastName', touched}) ?
+                                                   getIn(errors, 'lastName') : null}
+                                        />
                                     </div>
                                     <div className="formField">
-                                        <TextField
-                                            id="password"
-                                            type="password"
-                                            label="Пароль"
-                                            fullWidth
-                                            name="password"
-                                            value={formFields.password}
-                                            onChange={onChange}
-                                        >
-                                        </TextField>
+                                        <Field as={TextField}
+                                               id="password"
+                                               type="password"
+                                               label="Пароль"
+                                               error={isShowerError({errors, name: 'password', touched})}
+                                               fullWidth
+                                               name="password"
+                                               helperText={isShowerError({errors, name: 'password', touched}) ?
+                                                   getIn(errors, 'password') : null}
+                                        />
                                     </div>
                                     <div className="formAction">
                                         <Button
                                             type="submit"
                                             variant="contained"
                                             color="primary"
+                                            disabled={isSubmitting}
                                         >Зарегистрироваться
                                         </Button>
                                     </div>
@@ -106,7 +121,9 @@ const Registration = (props) => {
                                 </Grid>
                             </Grid>
                         </div>
-                    </form>
+                    </Form>)}
+
+                    </Formik>
                 </Paper>
             </div>
         </div>
