@@ -12,7 +12,7 @@ const OrderSchema = Yup.object().shape({
     fromRoute: Yup.string()
         .required('Required'),
     toRoute: Yup.string()
-        .notOneOf([Yup.ref('fromRoute'), "Конечный путь отправление, не может быть начальным"])
+        .notOneOf([Yup.ref('fromRoute')], "Конечный путь отправление, не может быть начальным")
         .required('Required'),
 });
 
