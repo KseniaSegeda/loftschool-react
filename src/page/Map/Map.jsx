@@ -2,15 +2,13 @@ import React, {useEffect, useRef, useState} from "react";
 import OpenOrder from "../../components/OpenOrder/OpenOrder"
 import mapboxgl from "mapbox-gl";
 import "./Map.css";
-import {getRoute} from "../../redux/route"
+import {getRoute, resetRouter} from "../../redux/route"
 import {connect} from "react-redux";
 import PaymentsOrder from "../../components/PaymentsOrder/PaymentsOrder";
 import {pendingGetCard} from "../../redux/payments";
 
 const Map = (props) => {
-    const {addresses, draw, isCard, pendingGetCard} = props;
-
-    const [modal, setModal] = useState('payments');
+    const {addresses, draw, isCard, pendingGetCard, resetRouter} = props;
     const [map, setMap] = useState(null)
 
     mapboxgl.accessToken = 'pk.eyJ1IjoiZHJhZ2luIiwiYSI6ImN' +
@@ -27,18 +25,16 @@ const Map = (props) => {
     }, [pendingGetCard]);
 
     useEffect(() => {
-
-        !isCard? setModal('payments') : setModal('order');
-        if(draw.drawRoute.length && !draw.isLoading && map){
+        if (draw.drawRoute.length && !draw.isLoading && map && map.isStyleLoaded()) {
+            resetRouter()
             const coordinates = draw.drawRoute;
             drawRoute(map, coordinates);
         }
-    }, [map, draw.drawRoute, draw.isLoading, isCard])
+    }, [map, draw.drawRoute, draw.isLoading, isCard, resetRouter])
 
     return <>
-        {modal=== 'payments' ?  <PaymentsOrder/> : null}
-        {modal=== 'order' ? <OpenOrder listAddress={addresses} />: null}
-        <div data-testid="map" className="map-container" ref={mapContainer} />
+        {isCard ? <OpenOrder listAddress={addresses}/> : <PaymentsOrder/> }
+        <div data-testid="map" className="map-container" ref={mapContainer}/>
     </>;
 }
 
@@ -80,5 +76,5 @@ export const drawRoute = (map, coordinates) => {
 
 export default connect(
     getRoute,
-    {pendingGetCard}
+    {pendingGetCard, resetRouter}
 )(Map);
