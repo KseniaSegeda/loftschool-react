@@ -5,9 +5,10 @@ import "./Map.css";
 import {getRoute} from "../../redux/route"
 import {connect} from "react-redux";
 import PaymentsOrder from "../../components/PaymentsOrder/PaymentsOrder";
+import {pendingGetCard} from "../../redux/payments";
 
 const Map = (props) => {
-    const {addresses, draw, isCard} = props;
+    const {addresses, draw, isCard, pendingGetCard} = props;
 
     const [modal, setModal] = useState('payments');
     const [map, setMap] = useState(null)
@@ -22,9 +23,11 @@ const Map = (props) => {
             center: [30.302499027775248, 59.92261297636499],
             zoom: 11,
         }));
-    }, []);
+        pendingGetCard();
+    }, [pendingGetCard]);
 
     useEffect(() => {
+
         !isCard? setModal('payments') : setModal('order');
         if(draw.drawRoute.length && !draw.isLoading && map){
             const coordinates = draw.drawRoute;
@@ -77,5 +80,5 @@ export const drawRoute = (map, coordinates) => {
 
 export default connect(
     getRoute,
-    {}
+    {pendingGetCard}
 )(Map);
