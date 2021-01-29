@@ -4,48 +4,39 @@ import {MCIcon} from 'loft-taxi-mui-theme';
 import './Profile.css';
 import DateFnsUtils from '@date-io/date-fns';
 import {DatePicker, MuiPickersUtilsProvider,} from '@material-ui/pickers';
-import {pendingGetCard, pendingSetCard, getCard} from "../../redux/payments/";
+import {getCard, pendingGetCard, pendingSetCard} from "../../redux/payments/";
 import {connect} from "react-redux";
+import * as Yup from "yup";
+import {Field, Form, Formik, getIn} from "formik";
 
+const PaymentsSchema = Yup.object().shape({
+    cardNumber: Yup.string()
+        .required('Required')
+        .matches(/\d{13,18}/, 'не верный формат'),
+    expiryDate: Yup.string().required('Required'),
+    cardName: Yup.string()
+        .required('Required'),
+    cvc: Yup.string().required('Required')
+        .matches(/\d{3,5}/, 'не верный формат')
+})
 
 const Profile = (props) => {
-    const {token, pendingSetCard, pendingGetCard, cardNumber, expiryDate, cardName, cvc} = props;
-    const [isUpdateCard, setIsUpdateCard] = useState(true);
-    const [formFields, setFormField] = useState({
-        cardNumber: "",
-        expiryDate: +new Date(),
-        cardName: "",
-        cvc: "",
-        token: token
-    });
+    const isShowerError = ({errors, name, touched}) => {
+        const fieldError = getIn(errors, name);
+        return getIn(touched, name) && !!fieldError;
+    }
 
+    const {pendingSetCard, pendingGetCard, cardNumber, expiryDate, cardName, cvc} = props;
+    const [isUpdateCard, setIsUpdateCard] = useState(true);
     useEffect(() => {
         if (isUpdateCard) {
             pendingGetCard();
             setIsUpdateCard(false)
         }
-        setFormField({cardNumber, expiryDate, cardName, cvc})
+
     }, [isUpdateCard, cardNumber, expiryDate, cardName, cvc, pendingGetCard]);
 
-    const onChange = (e) => {
-        setFormField({
-            ...formFields,
-            [e.target.name]: e.target.value,
-        });
-    };
 
-    const onDateChange = date => {
-        setFormField({
-            ...formFields,
-            expiryDate: date
-        })
-    }
-
-
-    const submit = (e) => {
-        e.preventDefault();
-        pendingSetCard(formFields);
-    };
     return <div className="profile" data-testid="profile">
         <div className="profile__container">
             <Paper className="profile__window">
@@ -57,90 +48,138 @@ const Profile = (props) => {
                         <Typography variant="body1">Способ оплаты</Typography>
                     </div>
                 </div>
-                <form onSubmit={submit}>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Grid container spacing={4} justify="center">
-                                {props.isLoading ?
-                                     <>
-                                        <Grid item xs={6}>
-                                            <Paper elevation={4} className="profile-form__block">
-                                                <div className="icon">
-                                                    <MCIcon/>
-                                                </div>
-                                                <div className="form__field">
-                                                    <TextField
-                                                        id="cardNumber"
-                                                        label="Номер карты"
-                                                        type="cardNumber"
-                                                        fullWidth
-                                                        placeholder="0000 0000 0000 0000"
-                                                        name="cardNumber"
-                                                        value={formFields.cardNumber}
-                                                        onChange={onChange}
-                                                        required
-                                                    />
-                                                </div>
-                                                <div className="form__field">
-                                                    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                                                        <DatePicker
-                                                            name="expiryDate"
-                                                            id="expiryDate"
-                                                            value={formFields.expiryDate}
-                                                            onChange={onDateChange}
-                                                            openTo="year"
-                                                            views={["year", "month"]}
-                                                            format="MM/yy"
-                                                            InputLabelProps={{shrink: true}}
-                                                            autoOk={true}
-                                                            fullWidth
-                                                            required
+                {props.isLoading ?
+                    <Formik initialValues={{cardNumber, expiryDate, cardName, cvc, pendingGetCard}}
+                            validationSchema={PaymentsSchema}
+                            onSubmit={(values, {setSubmitting}) => {
+                                console.log(values)
+                                pendingSetCard(values);
+                                setSubmitting(false);
+                            }}
+                    >{({
+                           errors,
+                           touched,
+                           values,
+                           setFieldValue
+                       }) => (
+                        <Form>
+                            <Grid container>
+                                <Grid item xs={12}>
+                                    <Grid container spacing={4} justify="center">
+                                        <>
+                                            <Grid item xs={6}>
+                                                <Paper elevation={4} className="profile-form__block">
+                                                    <div className="icon">
+                                                        <MCIcon/>
+                                                    </div>
+                                                    <div className="form__field">
+                                                        <Field as={TextField}
+                                                               id="cardNumber"
+                                                               label="Номер карты"
+                                                               type="cardNumber"
+                                                               fullWidth
+                                                               placeholder="0000 0000 0000 0000"
+                                                               name="cardNumber"
+                                                               required
+                                                               error={isShowerError({
+                                                                   errors,
+                                                                   name: 'cardNumber',
+                                                                   touched
+                                                               })}
+                                                               helperText={isShowerError({
+                                                                   errors,
+                                                                   name: 'cardNumber',
+                                                                   touched
+                                                               }) ?
+                                                                   getIn(errors, 'cardNumber') : null}
                                                         />
-                                                    </MuiPickersUtilsProvider>
-                                                </div>
-                                            </Paper>
-                                        </Grid>
-                                        <Grid item xs={6}>
-                                            <Paper elevation={4} className="profile-form__block">
-                                                <div className="form__field">
-                                                    <TextField
-                                                        id="cardName"
-                                                        label="Имя владельца"
-                                                        type="cardName"
-                                                        fullWidth
-                                                        name="cardName"
-                                                        placeholder="USER NAME"
-                                                        value={formFields.cardName}
-                                                        onChange={onChange}
-                                                        required
-                                                    />
-                                                </div>
-                                                <div className="form__field">
-                                                    <TextField
-                                                        id="cvc"
-                                                        label="CVC"
-                                                        type="cvc"
-                                                        fullWidth
-                                                        name="cvc"
-                                                        value={formFields.cvc}
-                                                        onChange={onChange}
-                                                        required
-                                                    />
-                                                </div>
-                                            </Paper>
-                                        </Grid>
-                                     </> : <Grid item xs={6}>loading....</Grid>
-                                }
-                                <div>
-                                    <Button type="submit" variant="contained" color="primary">
-                                        Сохранить
-                                    </Button>
-                                </div>
+                                                    </div>
+                                                    <div className="form__field">
+                                                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                                                            <DatePicker
+                                                                value={values.expiryDate}
+                                                                onChange={(value) => setFieldValue('expiryDate', value)}
+                                                                name="expiryDate"
+                                                                id="expiryDate"
+                                                                openTo="year"
+                                                                views={["year", "month"]}
+                                                                format="MM/yy"
+                                                                InputLabelProps={{shrink: true}}
+                                                                autoOk={true}
+                                                                fullWidth
+                                                                required
+                                                                error={isShowerError({
+                                                                    errors,
+                                                                    name: 'expiryDate',
+                                                                    touched
+                                                                })}
+                                                                helperText={isShowerError({
+                                                                    errors,
+                                                                    name: 'expiryDate',
+                                                                    touched
+                                                                }) ?
+                                                                    getIn(errors, 'expiryDate') : null}
+                                                            />
+                                                        </MuiPickersUtilsProvider>
+                                                    </div>
+                                                </Paper>
+                                            </Grid>
+                                            <Grid item xs={6}>
+                                                <Paper elevation={4} className="profile-form__block">
+                                                    <div className="form__field">
+                                                        <Field as={TextField}
+                                                               id="cardName"
+                                                               label="Имя владельца"
+                                                               type="cardName"
+                                                               fullWidth
+                                                               name="cardName"
+                                                               placeholder="USER NAME"
+                                                               required
+                                                               error={isShowerError({
+                                                                   errors,
+                                                                   name: 'cardName',
+                                                                   touched
+                                                               })}
+                                                               helperText={isShowerError({
+                                                                   errors,
+                                                                   name: 'cardName',
+                                                                   touched
+                                                               }) ?
+                                                                   getIn(errors, 'cardName') : null}
+                                                        />
+                                                    </div>
+                                                    <div className="form__field">
+                                                        <Field as={TextField}
+                                                               id="cvc"
+                                                               label="CVC"
+                                                               type="cvc"
+                                                               fullWidth
+                                                               name="cvc"
+                                                               required
+                                                               error={isShowerError({errors, name: 'cvc', touched})}
+                                                               helperText={isShowerError({
+                                                                   errors,
+                                                                   name: 'cvc',
+                                                                   touched
+                                                               }) ?
+                                                                   getIn(errors, 'cvc') : null}
+                                                        />
+                                                    </div>
+                                                </Paper>
+                                            </Grid>
+                                        </>
 
+                                        <div>
+                                            <Button type="submit" variant="contained" color="primary">
+                                                Сохранить
+                                            </Button>
+                                        </div>
+
+                                    </Grid>
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Grid>
-                </form>
+                        </Form>)}
+                    </Formik> : <Grid item xs={6}>loading....</Grid>}
             </Paper>
         </div>
     </div>

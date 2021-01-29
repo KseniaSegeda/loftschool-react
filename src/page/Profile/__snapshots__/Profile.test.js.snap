@@ -33,52 +33,11 @@ exports[`Profile render correctly 1`] = `
           </p>
         </div>
       </div>
-      <form
-        onSubmit={[Function]}
+      <div
+        className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
       >
-        <div
-          className="MuiGrid-root MuiGrid-container"
-        >
-          <div
-            className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12"
-          >
-            <div
-              className="MuiGrid-root MuiGrid-container MuiGrid-spacing-xs-4 MuiGrid-justify-xs-center"
-            >
-              <div
-                className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-6"
-              >
-                loading....
-              </div>
-              <div>
-                <button
-                  className="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary"
-                  disabled={false}
-                  onBlur={[Function]}
-                  onDragLeave={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  onMouseDown={[Function]}
-                  onMouseLeave={[Function]}
-                  onMouseUp={[Function]}
-                  onTouchEnd={[Function]}
-                  onTouchMove={[Function]}
-                  onTouchStart={[Function]}
-                  tabIndex={0}
-                  type="submit"
-                >
-                  <span
-                    className="MuiButton-label"
-                  >
-                    Сохранить
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </form>
+        loading....
+      </div>
     </div>
   </div>
 </div>

@@ -21,7 +21,9 @@ exports[`Registration.js render correctly 1`] = `
       className="MuiPaper-root loginForm MuiPaper-elevation1 MuiPaper-rounded"
     >
       <form
+        action="#"
         className="form"
+        onReset={[Function]}
         onSubmit={[Function]}
       >
         <div
@@ -87,7 +89,7 @@ exports[`Registration.js render correctly 1`] = `
                       onChange={[Function]}
                       onFocus={[Function]}
                       required={false}
-                      type="email"
+                      type="text"
                       value=""
                     />
                   </div>

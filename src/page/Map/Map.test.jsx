@@ -61,9 +61,9 @@ describe('Map.js', () => {
     });
 
     it('card set -> popup open order', async function () {
-        store.dispatch(successSetCard(FAKE_DATA_CARD));
         let  getByText;
         await act(async () => {
+            store.dispatch(successSetCard(FAKE_DATA_CARD));
             getByText = render(global.wrapperProvider(<Map />, store)).getByText;
         });
         store.dispatch(successGetListAddress({addresses: [1,2,3,4]}));
